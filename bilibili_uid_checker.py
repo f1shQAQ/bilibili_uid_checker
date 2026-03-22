@@ -131,13 +131,18 @@ def main():
     print("   Bilibili UID 检查器 — 乱码用户名 + 0级 筛选工具")
     print("=" * 55)
 
-    # 1. 让用户选择 UID 第一位数字
+    # 1. 让用户选择 UID 前缀（1~2位数字）
     while True:
-        first_digit = input("\n请输入 UID 的第一位数字 (1-9): ").strip()
-        if first_digit in [str(i) for i in range(1, 10)]:
-            first_digit = int(first_digit)
+        prefix_input = input("\n请输入 UID 的前缀数字（1位: 1-9，2位: 10-99）: ").strip()
+        if prefix_input.isdigit() and 1 <= int(prefix_input) <= 99 and prefix_input[0] != '0':
+            uid_prefix = int(prefix_input)
+            prefix_len = len(prefix_input)  # 1 或 2
             break
-        print("❌ 输入无效，请输入 1~9 之间的数字。")
+        print("❌ 输入无效，请输入 1~9（一位）或 10~99（两位）的数字。")
+
+    # 计算随机部分的位数（总共7位 UID）
+    random_digits = 7 - prefix_len            # 前缀1位 → 随机6位；前缀2位 → 随机5位
+    random_max = 10 ** random_digits - 1       # 例如 999999 或 99999
 
     # 2. 连接本地 Chrome
     print(f"\n🔗 正在连接本地 Chrome (端口 {DEBUGGING_PORT})...")
@@ -156,15 +161,15 @@ def main():
     checked = 0
     found = 0
 
-    print(f"\n🚀 开始检查... (UID 首位: {first_digit})")
+    print(f"\n🚀 开始检查... (UID 前缀: {uid_prefix})")
     print(f"📁 结果保存至: {OUTPUT_FILE}")
     print("-" * 55)
 
     try:
         while True:
-            # 生成随机7位 UID，首位固定
-            remaining = random.randint(0, 999999)
-            uid = int(f"{first_digit}{remaining:06d}")
+            # 生成随机7位 UID，前缀固定
+            remaining = random.randint(0, random_max)
+            uid = int(f"{uid_prefix}{remaining:0{random_digits}d}")
 
             url = f"https://space.bilibili.com/{uid}"
 
