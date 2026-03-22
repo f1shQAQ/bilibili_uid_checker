@@ -2,6 +2,10 @@
 
 随机生成 7 位 UID 访问 B 站用户空间，自动筛选「乱码英文用户名 + 0 级」的异常账号并记录。
 
+## 视频教程
+
+![https://www.bilibili.com/video/BV1xjAMzsEsB](https://www.bilibili.com/video/BV1xjAMzsEsB)
+
 ## 项目结构
 
 ```
