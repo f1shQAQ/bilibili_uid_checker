@@ -4,7 +4,7 @@
 
 ## 视频教程
 
-![https://www.bilibili.com/video/BV1xjAMzsEsB](https://www.bilibili.com/video/BV1xjAMzsEsB)
+[https://www.bilibili.com/video/BV1xjAMzsEsB](https://www.bilibili.com/video/BV1xjAMzsEsB)
 
 ## 项目结构
 
